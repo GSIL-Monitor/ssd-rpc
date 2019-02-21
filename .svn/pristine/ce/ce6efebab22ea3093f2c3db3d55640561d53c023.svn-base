@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">   
+        
+    <!-- 具体的实现bean -->
+    <!--区块链相关接口-->
+    <bean id="gpsTrackService" class="com.shabro.rpc.service.gpsTrack.GpsTrackServiceImpl" />
+    <bean id="cyzOrderService" class="com.shabro.rpc.service.cyzOrder.CyzOrderServiceImpl" />
+
+    <!--区块链相关接口-->
+    <!--<bean id="blockChainService" class="com.shabro.rpc.service.blockchain.BlockChainServiceImpl" />-->
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->  
+    <dubbo:application name="privider-cargo" />
+
+    <!-- 使用zookeeper注册中心暴露服务地址 -->
+    <!--本地测试环境-->
+    <!--<dubbo:registry protocol="zookeeper" address="zookeeper://192.168.0.11:2181" />-->
+    <!--正式环境和上线测试环境-->
+    <dubbo:registry protocol="zookeeper" address="zookeeper://49.4.5.111:2181" />
+
+    <!-- 用dubbo协议在20880端口暴露服务 host="192.168.0.11"-->
+    <dubbo:protocol name="dubbo" port="29955" />
+
+    <!-- 声明需要暴露的服务接口 -->
+    <dubbo:service interface="com.shabro.rpc.service.gpsTrack.GpsTrackService" ref="gpsTrackService" >
+        <dubbo:method name="saveGpsTrack" timeout="20000" />
+    </dubbo:service>
+    <dubbo:service interface="com.shabro.rpc.service.cyzOrder.CyzOrderService" ref="cyzOrderService" />
+
+    <!--<dubbo:service interface="com.shabro.rpc.service.blockchain.BlockChainService" ref="blockChainService" />-->
+</beans> 

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ssd-rpc:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="ssd-rpc.war">
+      <element id="artifact" artifact-name="ssd-rpc:war exploded" />
+    </root>
+  </artifact>
+</component>
